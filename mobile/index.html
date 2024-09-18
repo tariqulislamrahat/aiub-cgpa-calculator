@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>AIUB CGPA Calculator</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      margin: 0;
+      padding: 20px;
+      box-sizing: border-box;
+      min-height: 100vh;
+      color: #4a4a4a;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .calculator {
+      background-color: rgba(255, 255, 255, 0.95);
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      padding: 30px;
+      width: 100%;
+      box-sizing: border-box;
+      max-width: 400px;
+      margin: 0 auto;
+      animation: fadeIn 0.5s ease;
+    }
+
+    .logo-container {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .logo-container img {
+      max-width: 150px;
+      height: auto;
+    }
+
+    h1 {
+      text-align: center;
+      color: #4a4a4a;
+      margin-bottom: 30px;
+      font-size: 24px;
+      font-weight: 600;
+    }
+
+    .form-group {
+      margin-bottom: 25px;
+      animation: slideIn 0.5s ease;
+    }
+
+    label {
+      display: block;
+      font-weight: 600;
+      color: #555;
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      font-size: 16px;
+      box-sizing: border-box;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      transition: all 0.3s ease;
+    }
+
+    input:focus, select:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.25);
+    }
+
+    select {
+      background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007CB2%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px top 50%;
+      background-size: 12px auto;
+    }
+
+    .course-input {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    .course-input select {
+      flex: 2;
+    }
+
+    .course-input input {
+      flex: 1;
+    }
+
+    button {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #ffffff;
+      border: none;
+      border-radius: 8px;
+      padding: 14px;
+      font-size: 16px;
+      font-weight: 600;
+      width: 100%;
+      margin-top: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    button::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(to bottom right, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0));
+      transform: rotate(45deg);
+      transition: all 0.3s ease;
+    }
+
+    button:hover::after {
+      left: 100%;
+    }
+
+    #result {
+      font-size: 18px;
+      font-weight: bold;
+      color: #4a4a4a;
+      margin-top: 30px;
+      padding: 20px;
+      background-color: #f0f0f0;
+      border-radius: 8px;
+      text-align: center;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      animation: fadeIn 0.5s ease;
+    }
+
+    .credit {
+      text-align: center;
+      margin-top: 30px;
+      font-size: 12px;
+      color: #4a4a4a;
+    }
+
+    .credit a {
+      color: #667eea;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideIn {
+      0% { transform: translateX(-20px); opacity: 0; }
+      100% { transform: translateX(0); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <div class="calculator">
+    <div class="logo-container">
+      <img src="https://www.aiub.edu/Files/Templates/NewAIUB/assets/images/aiub-logo.svg" alt="AIUB Logo">
+    </div>
+    <h1>AIUB CGPA Calculator</h1>
+
+    <div class="form-group">
+      <label for="currentSemesterCourses">Current Semester Courses</label>
+      <div id="currentSemesterCourses">
+        <div class="course-input">
+          <select id="course0Grade">
+            <option value="">Grade</option>
+            <option value="A+">A+ (90-100)</option>
+            <option value="A">A (85-89)</option>
+            <option value="B+">B+ (80-84)</option>
+            <option value="B">B (75-79)</option>
+            <option value="C+">C+ (70-74)</option>
+            <option value="C">C (65-69)</option>
+            <option value="D+">D+ (60-64)</option>
+            <option value="D">D (50-59)</option>
+            <option value="F">F (< 50)</option>
+          </select>
+          <input type="number" id="course0Credits" placeholder="Credits" min="0" required>
+        </div>
+      </div>
+      <button id="addCourse">Add Course</button>
+    </div>
+
+    <div class="form-group">
+      <label for="previousCGPA">Previous CGPA</label>
+      <input type="number" id="previousCGPA" step="0.01" placeholder="Enter Previous CGPA" required>
+    </div>
+
+    <div class="form-group">
+      <label for="previousCredits">Previous Credits</label>
+      <input type="number" id="previousCredits" placeholder="Enter Previous Credits" min="0" required>
+    </div>
+
+    <button id="calculateCGPA">Calculate CGPA</button>
+
+    <div id="result"></div>
+    <div class="credit">
+      Developed by <a href="https://www.facebook.com/tariqulislaamrahat">Tariqul Islam</a>
+    </div>
+  </div>
+
+  <script>
+    const currentSemesterCoursesContainer = document.getElementById('currentSemesterCourses');
+    const addCourseButton = document.getElementById('addCourse');
+    const calculateCGPAButton = document.getElementById('calculateCGPA');
+    const resultDiv = document.getElementById('result');
+
+    let courseCount = 1;
+
+    addCourseButton.addEventListener('click', () => {
+      const courseInput = document.createElement('div');
+      courseInput.classList.add('course-input');
+
+      const gradeSelect = document.createElement('select');
+      gradeSelect.id = `course${courseCount}Grade`;
+      gradeSelect.innerHTML = `
+        <option value="">Grade</option>
+        <option value="A+">A+ (90-100)</option>
+        <option value="A">A (85-89)</option>
+        <option value="B+">B+ (80-84)</option>
+        <option value="B">B (75-79)</option>
+        <option value="C+">C+ (70-74)</option>
+        <option value="C">C (65-69)</option>
+        <option value="D+">D+ (60-64)</option>
+        <option value="D">D (50-59)</option>
+        <option value="F">F (< 50)</option>
+      `;
+
+      const creditsInput = document.createElement('input');
+      creditsInput.type = 'number';
+      creditsInput.id = `course${courseCount}Credits`;
+      creditsInput.placeholder = 'Credits';
+      creditsInput.min = '0';
+      creditsInput.required = true;
+
+      courseInput.appendChild(gradeSelect);
+      courseInput.appendChild(creditsInput);
+      currentSemesterCoursesContainer.appendChild(courseInput);
+
+      courseCount++;
+    });
+
+    calculateCGPAButton.addEventListener('click', () => {
+      const gradePoints = {
+        'A+': 4.00, 'A': 3.75, 'B+': 3.50, 'B': 3.25, 'C+': 3.00, 'C': 2.75,
+        'D+': 2.50, 'D': 2.25, 'F': 0.00
+      };
+
+      let totalGradePoints = 0;
+      let totalCredits = 0;
+
+      for (let i = 0; i < courseCount; i++) {
+        const gradeSelect = document.getElementById(`course${i}Grade`);
+        const creditsInput = document.getElementById(`course${i}Credits`);
+        const grade = gradeSelect.value;
+        const credits = parseFloat(creditsInput.value);
+
+        if (grade && credits > 0) {
+          totalGradePoints += gradePoints[grade] * credits;
+          totalCredits += credits;
+        }
+      }
+
+      const previousCGPA = parseFloat(document.getElementById('previousCGPA').value);
+      const previousCredits = parseFloat(document.getElementById('previousCredits').value);
+
+      const currentSemesterGPA = totalCredits > 0 ? totalGradePoints / totalCredits : 0;
+      const totalCompletedCredits = previousCredits + totalCredits;
+      const newCGPA = (previousCGPA * previousCredits + currentSemesterGPA * totalCredits) / totalCompletedCredits;
+
+      resultDiv.innerHTML = `
+        <p>Current Semester GPA: <strong>${currentSemesterGPA.toFixed(2)}</strong></p>
+        <p>Cumulative GPA (CGPA): <strong>${newCGPA.toFixed(2)}</strong></p>
+      `;
+    });
+  </script>
+</body>
+</html>
