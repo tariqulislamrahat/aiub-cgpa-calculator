@@ -27,7 +27,7 @@ Welcome to the **AIUB CGPA Calculator**! This sophisticated tool is meticulously
 
 ## 🌐 Try It Now!
 
-Experience the AIUB CGPA Calculator: [Live Demo](https://tariqul-islam-rahat.github.io/aiub-cgpa-calculator/)
+Experience the AIUB CGPA Calculator: [Live Demo](https://tariqulislamrahat.github.io/aiub-cgpa-calculator/)
 
 ## 💻 Technical Specifications
 
@@ -45,7 +45,7 @@ This project is open-source under the MIT License. For more details, see the [LI
 
 ## 👨‍💻 Developer
 
-Crafted with ❤️ by [Tariqul Islam](https://www.facebook.com/tariqulislaamrahat)
+Crafted with ❤️ by [Tariqul Islam](https://www.facebook.com/tariqulislamraahat)
 
 ---
 
@@ -53,7 +53,7 @@ Crafted with ❤️ by [Tariqul Islam](https://www.facebook.com/tariqulislaamrah
 
 Your insights are valuable! If you have suggestions or want to contribute, please:
 
-- Open an issue or submit a pull request on our [GitHub Issues page](https://github.com/tariqul-islam-rahat/aiub-cgpa-calculator/issues).
+- Open an issue or submit a pull request on our [GitHub Issues page](https://github.com/tariqulislamrahat/aiub-cgpa-calculator/issues).
 - Share your thoughts and experiences with the calculator.
 
 ## 🌟 Show Your Support
