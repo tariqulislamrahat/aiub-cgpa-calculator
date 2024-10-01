@@ -45,7 +45,7 @@ This project is open-source under the MIT License. For more details, see the [LI
 
 ## 👨‍💻 Developer
 
-Crafted with ❤️ by [Tariqul Islam](https://www.facebook.com/tariqulislamraahat)
+Crafted with ❤️ by [Tariqul Islam](https://www.facebook.com/tariqulislamrahaat)
 
 ---
 
