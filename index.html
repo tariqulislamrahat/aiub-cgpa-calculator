@@ -3,452 +3,519 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AIUB CGPA Calculator</title>
-  <link rel="icon" href="https://www.aiub.edu/Files/Templates/NewAIUB/assets/images/aiub-logo.svg">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --primary-color: #667eea;
-      --secondary-color: #764ba2;
-      --background-color: #f0f4ff;
-      --text-color: #4a4a4a;
-      --input-border-color: #ddd;
-      --card-background: rgba(255, 255, 255, 0.95);
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIUB CGPA Calculator</title>
+    <link rel="icon" href="https://www.aiub.edu/Files/Templates/NewAIUB/assets/images/aiub-logo.svg">
+    <style>
+        :root {
+            --primary-color: #667eea;
+            --secondary-color: #764ba2;
+            --background-color: #f0f4ff;
+            --text-color: #000000;
+            --input-border-color: #ddd;
+            --card-background: rgba(255, 255, 255, 0.95);
+        }
 
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      margin: 0;
-      padding: 20px;
-      box-sizing: border-box;
-    }
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
 
-    .calculator {
-      background-color: var(--card-background);
-      border-radius: 20px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-      padding: 40px;
-      width: 100%;
-      max-width: 800px;
-      animation: fadeIn 0.5s ease;
-    }
+        .calculator {
+            background-color: var(--card-background);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            padding: 40px;
+            width: 100%;
+            max-width: 800px;
+            animation: fadeIn 0.5s ease;
+        }
 
-    .calculator h1 {
-      text-align: center;
-      color: var(--text-color);
-      margin-bottom: 30px;
-      font-weight: 600;
-      font-size: 2.5rem;
-    }
+        .container-3d {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 
+                0 1px 1px rgba(0,0,0,0.15), 
+                0 2px 2px rgba(0,0,0,0.15), 
+                0 4px 4px rgba(0,0,0,0.15), 
+                0 8px 8px rgba(0,0,0,0.15);
+            padding: 30px 40px;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+        }
 
-    .form-group {
-      margin-bottom: 25px;
-      animation: slideIn 0.5s ease;
-    }
+        .container-3d:hover {
+            transform: translateY(-5px);
+            box-shadow: 
+                0 1px 1px rgba(0,0,0,0.18), 
+                0 2px 2px rgba(0,0,0,0.18), 
+                0 4px 4px rgba(0,0,0,0.18), 
+                0 8px 8px rgba(0,0,0,0.18),
+                0 16px 16px rgba(0,0,0,0.18);
+        }
 
-    label {
-      display: block;
-      font-weight: 600;
-      color: var(--text-color);
-      margin-bottom: 8px;
-    }
+        .result-weightage {
+            margin-bottom: 20px;
+            text-align: center;
+        }
 
-    input {
-      width: 100%;
-      padding: 12px;
-      border: 2px solid var(--input-border-color);
-      border-radius: 8px;
-      font-size: 16px;
-      transition: all 0.3s ease;
-      box-sizing: border-box;
-    }
+        .result-weightage h3 {
+            color: black;
+            font-family: 'Roboto', sans-serif;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
 
-    input:focus {
-      outline: none;
-      border-color: var(--primary-color);
-      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.25);
-    }
+        .weightage-inputs {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
 
-    .course-input {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 10px;
-      margin-bottom: 20px;
-    }
+        .weightage-input {
+            flex: 1;
+        }
 
-    .percentage-input {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      align-items: center;
-      margin-bottom: 20px;
-    }
+        .weightage-input input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            text-align: center;
+            font-family: 'Roboto', sans-serif;
+        }
 
-    .percentage-input input {
-      width: 100%;
-      text-align: center;
-      font-weight: bold;
-      border: 2px solid var(--input-border-color);
-      border-radius: 8px;
-      padding: 12px;
-      font-size: 16px;
-    }
+        .weightage-label {
+            text-align: center;
+            color: #666;
+            font-size: 14px;
+            margin-top: 5px;
+        }
 
-    .percentage-label {
-      text-align: center;
-      font-weight: 600;
-      color: var(--text-color);
-    }
+        .previous-info {
+            text-align: center;
+        }
 
-    button {
-      background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-      color: #fff;
-      border: none;
-      border-radius: 8px;
-      padding: 14px 28px;
-      font-size: 18px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      width: 100%;
-      margin-top: 20px;
-    }
+        .previous-info h3 {
+            color: black;
+            font-family: 'Roboto', sans-serif;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
 
-    button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-    }
+        .previous-info input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            margin-bottom: 15px;
+            font-family: 'Roboto', sans-serif;
+        }
 
-    #result {
-      font-size: 24px;
-      font-weight: bold;
-      color: var(--text-color);
-      margin-top: 30px;
-      padding: 20px;
-      background-color: var(--background-color);
-      border-radius: 8px;
-      text-align: center;
-      animation: fadeIn 0.5s ease;
-      transition: all 0.3s ease;
-    }
+        h2 {
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+            font-family: 'Roboto', sans-serif;
+        }
 
-    @keyframes fadeIn {
-      0% { opacity: 0; transform: translateY(20px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
+        .course-container {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+        }
 
-    @keyframes slideIn {
-      0% { transform: translateX(-20px); opacity: 0; }
-      100% { transform: translateX(0); opacity: 1; }
-    }
+        .course-number {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+            font-family: 'Roboto', sans-serif;
+        }
 
-    .logo {
-      display: flex;
-      justify-content: center;
-      margin-bottom: 20px;
-    }
+        .course-inputs {
+            display: flex;
+            gap: 15px;
+        }
 
-    .logo img {
-      max-width: 250px;
-    }
+        .course-inputs input,
+        .course-inputs select {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid var(--input-border-color);
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            font-family: 'Roboto', sans-serif;
+        }
 
-    .credit {
-      text-align: center;
-      margin-top: 20px;
-      font-size: 14px;
-      color: var(--text-color);
-    }
+        .course-inputs input:focus,
+        .course-inputs select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.25);
+        }
 
-    .credit a {
-      color: var(--primary-color);
-      text-decoration: none;
-      font-weight: 600;
-    }
+        .percentage-input {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
 
-    .select-wrapper {
-      position: relative;
-      display: inline-block;
-      width: 100%;
-    }
+        .percentage-input label {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-color);
+            font-family: 'Roboto', sans-serif;
+        }
 
-    .select-wrapper::after {
-      content: '\25BC';
-      position: absolute;
-      top: 50%;
-      right: 15px;
-      transform: translateY(-50%);
-      pointer-events: none;
-      color: var(--primary-color);
-      font-size: 14px;
-    }
+        .percentage-input input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--input-border-color);
+            border-radius: 8px;
+            font-size: 16px;
+            text-align: center;
+            font-family: 'Roboto', sans-serif;
+        }
 
-    select {
-      appearance: none;
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      width: 100%;
-      padding: 12px 40px 12px 12px;
-      border: 2px solid var(--input-border-color);
-      border-radius: 8px;
-      font-size: 16px;
-      background-color: #fff;
-      transition: all 0.3s ease;
-      cursor: pointer;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    }
+        .button-86 {
+            all: unset;
+            width: 100px;
+            height: 30px;
+            font-size: 16px;
+            background: transparent;
+            border: none;
+            position: relative;
+            color: #f0f0f0;
+            cursor: pointer;
+            z-index: 1;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            white-space: nowrap;
+            user-select: none;
+            margin: 0 auto;
+        }
 
-    select:focus {
-      outline: none;
-      border-color: var(--primary-color);
-      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.25), 0 2px 5px rgba(0, 0, 0, 0.1);
-    }
+        .button-86::after,
+        .button-86::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            z-index: -99999;
+            transition: all .4s;
+        }
 
-    select:hover {
-      border-color: var(--primary-color);
-    }
+        .button-86::before {
+            transform: translate(0%, 0%);
+            width: 100%;
+            height: 100%;
+            background: #28282d;
+            border-radius: 10px;
+        }
 
-    option {
-      padding: 10px;
-    }
+        .button-86::after {
+            transform: translate(10px, 10px);
+            width: 35px;
+            height: 35px;
+            background: #ffffff15;
+            backdrop-filter: blur(5px);
+            border-radius: 50px;
+        }
 
-    select option:checked {
-      background-color: var(--primary-color);
-      color: #fff;
-    }
+        .button-86:hover::before {
+            transform: translate(5%, 20%);
+            width: 110%;
+            height: 110%;
+        }
 
-    @media (max-width: 600px) {
-      .course-input {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
+        .button-86:hover::after {
+            border-radius: 10px;
+            transform: translate(0, 0);
+            width: 100%;
+            height: 100%;
+        }
+
+        .button-86:active::after {
+            transition: 0s;
+            transform: translate(0, 5%);
+        }
+
+        #result {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--text-color);
+            margin-top: 30px;
+            padding: 20px;
+            background-color: var(--background-color);
+            border-radius: 8px;
+            text-align: center;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .logo {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        .logo img {
+            max-width: 200px;
+        }
+
+        .credit {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 14px;
+            color: var(--text-color);
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .credit a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        @media (max-width: 600px) {
+            .course-inputs {
+                flex-direction: column;
+            }
+            .weightage-inputs {
+                flex-direction: column;
+            }
+            .weightage-input {
+                margin-bottom: 10px;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="calculator">
-    <div class="logo">
-      <img src="logo.svg" alt="Logo">
-    </div>
-    <div class="form-group">
-      <label for="currentSemesterCourses">Current Semester Courses</label>
-      <div id="currentSemesterCourses">
-        <div class="course-input">
-          <div class="select-wrapper">
-            <select id="course0Mid">
-              <option value="">Select Mid Grade</option>
-              <option value="4.00">A+ (90-100)</option>
-              <option value="3.75">A (85-90)</option>
-              <option value="3.50">B+ (80-85)</option>
-              <option value="3.25">B (75-80)</option>
-              <option value="3.00">C+ (70-75)</option>
-              <option value="2.75">C (65-70)</option>
-              <option value="2.50">D+ (60-65)</option>
-              <option value="2.25">D (50-60)</option>
-              <option value="0.00">F (&lt;50)</option>
-            </select>
-          </div>
-          <div class="select-wrapper">
-            <select id="course0Final">
-              <option value="">Select Final Grade</option>
-              <option value="4.00">A+ (90-100)</option>
-              <option value="3.75">A (85-90)</option>
-              <option value="3.50">B+ (80-85)</option>
-              <option value="3.25">B (75-80)</option>
-              <option value="3.00">C+ (70-75)</option>
-              <option value="2.75">C (65-70)</option>
-              <option value="2.50">D+ (60-65)</option>
-              <option value="2.25">D (50-60)</option>
-              <option value="0.00">F (&lt;50)</option>
-            </select>
-          </div>
-          <input type="number" id="course0Credits" placeholder="Credits" min="0" value="3" required>
+    <div class="calculator">
+        <div class="logo">
+            <img src="logo.svg" alt="Logo">
         </div>
-      </div>
-      <button id="addCourse">Add Course</button>
-    </div>
 
-    <div class="form-group">
-      <label for="percentages">Result Weightage</label>
-      <div class="percentage-input">
-        <div>
-          <input type="number" id="midPercentage" value="40" min="0" max="100" required>
-          <label class="percentage-label">Mid (%)</label>
+        <div class="container-3d">
+            <h2 style="font-size: 1.5rem; color: black; font-family: Roboto, sans-serif;">CURRENT SEMESTER COURSES</h2>
+
+            <div id="currentSemesterCourses">
+                <div class="course-container">
+                    <div class="course-number">Course 1</div>
+                    <div class="course-inputs">
+                        <input type="number" class="course-credits" placeholder="Credits" min="0" max="5" value="3" required>
+                        <select class="mid-grade">
+                            <option value="">Select Mid Grade</option>
+                            <option value="A+">A+ (90-100)</option>
+                            <option value="A">A (85-90)</option>
+                            <option value="B+">B+ (80-85)</option>
+                            <option value="B">B (75-80)</option>
+                            <option value="C+">C+ (70-75)</option>
+                            <option value="C">C (65-70)</option>
+                            <option value="D+">D+ (60-65)</option>
+                            <option value="D">D (50-60)</option>
+                            <option value="F">F (&lt;50)</option>
+                        </select>
+                        <select class="final-grade">
+                            <option value="">Select Final Grade</option>
+                            <option value="A+">A+ (90-100)</option>
+                            <option value="A">A (85-90)</option>
+                            <option value="B+">B+ (80-85)</option>
+                            <option value="B">B (75-80)</option>
+                            <option value="C+">C+ (70-75)</option>
+                            <option value="C">C (65-70)</option>
+                            <option value="D+">D+ (60-65)</option>
+                            <option value="D">D (50-60)</option>
+                            <option value="F">F (&lt;50)</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <button class="button-86" id="addCourse" role="button">Add Course</button>
         </div>
-        <div>
-          <input type="number" id="finalPercentage" value="60" min="0" max="100" required>
-          <label class="percentage-label">Final (%)</label>
+
+        <div class="container-3d">
+            <div class="result-weightage">
+                <h3>Result Weightage</h3>
+                <div class="weightage-inputs">
+                    <div class="weightage-input">
+                        <input type="number" id="midPercentage" value="40" min="0" max="100" required>
+                        <div class="weightage-label">Mid (%)</div>
+                    </div>
+                    <div class="weightage-input">
+                        <input type="number" id="finalPercentage" value="60" min="0" max="100" required>
+                        <div class="weightage-label">Final (%)</div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
 
-    <div class="form-group">
-      <label for="previousCGPA">Previous CGPA</label>
-      <input type="number" id="previousCGPA" step="0.01" placeholder="Previous CGPA" required>
-    </div>
+        <div class="container-3d">
+            <div class="previous-info">
+                <h3>Previous CGPA</h3>
+                <input type="number" id="previousCGPA" step="0.01" placeholder="" required>
+                
+                <h3>Previous Credits</h3>
+                <input type="number" id="previousCredits" placeholder="" required>
+            </div>
+        </div>
 
-    <div class="form-group">
-      <label for="previousCredits">Previous Credits</label>
-      <input type="number" id="previousCredits" placeholder="Previous Completed Credits" min="0" required>
-    </div>
+        <button class="button-86" id="calculateCGPA" role="button">Calculate CGPA</button>
 
-    <button id="calculateCGPA">Calculate CGPA</button>
+        <div id="result"></div>
 
-    <div id="result"></div>
-    <div class="credit">
-      Developed by <a href="https://github.com/tariqulislamrahat/aiub-cgpa-calculator/">Tariqul Islam</a>
-    </div>
-  </div>
+        <div class="credit">
+            <p>Developed by <a href="https://github.com/tariqulislamrahat/aiub-cgpa-calculator/" target="_blank" rel="noopener noreferrer">Tariqul Islam</a> via <a href="https://www.cursor.com/" target="_blank" rel="noopener noreferrer" style="color: var(--primary-color);">Cursor Ai</a></p>
+        </div>
 
-  <script>
-    const currentSemesterCoursesContainer = document.getElementById('currentSemesterCourses');
-    const addCourseButton = document.getElementById('addCourse');
-    const calculateCGPAButton = document.getElementById('calculateCGPA');
-    const resultDiv = document.getElementById('result');
-    const midPercentageInput = document.getElementById('midPercentage');
-    const finalPercentageInput = document.getElementById('finalPercentage');
+    <script>
+        let courseCount = 1;
 
-    let courseCount = 1;
+        document.getElementById('addCourse').addEventListener('click', function() {
+            courseCount++;
+            const newCourse = document.createElement('div');
+            newCourse.className = 'course-container';
+            newCourse.innerHTML = `
+                <div class="course-number">Course ${courseCount}</div>
+                <div class="course-inputs">
+                    <input type="number" class="course-credits" placeholder="Credits" min="0" max="5" value="3" required>
+                    <select class="mid-grade">
+                        <option value="">Select Mid Grade</option>
+                        <option value="A+">A+ (90-100)</option>
+                        <option value="A">A (85-90)</option>
+                        <option value="B+">B+ (80-85)</option>
+                        <option value="B">B (75-80)</option>
+                        <option value="C+">C+ (70-75)</option>
+                        <option value="C">C (65-70)</option>
+                        <option value="D+">D+ (60-65)</option>
+                        <option value="D">D (50-60)</option>
+                        <option value="F">F (&lt;50)</option>
+                    </select>
+                    <select class="final-grade">
+                        <option value="">Select Final Grade</option>
+                        <option value="A+">A+ (90-100)</option>
+                        <option value="A">A (85-90)</option>
+                        <option value="B+">B+ (80-85)</option>
+                        <option value="B">B (75-80)</option>
+                        <option value="C+">C+ (70-75)</option>
+                        <option value="C">C (65-70)</option>
+                        <option value="D+">D+ (60-65)</option>
+                        <option value="D">D (50-60)</option>
+                        <option value="F">F (&lt;50)</option>
+                    </select>
+                </div>
+            `;
+            document.getElementById('currentSemesterCourses').appendChild(newCourse);
+        });
 
-    function animateElement(element) {
-      element.style.animation = 'none';
-      element.offsetHeight;
-      element.style.animation = null;
-    }
+        const calculateCGPAButton = document.getElementById('calculateCGPA');
+        const resultDiv = document.getElementById('result');
+        const midPercentageInput = document.getElementById('midPercentage');
+        const finalPercentageInput = document.getElementById('finalPercentage');
 
-    addCourseButton.addEventListener('click', () => {
-      const courseInput = document.createElement('div');
-      courseInput.classList.add('course-input');
+        calculateCGPAButton.addEventListener('click', () => {
+            const midPercentage = parseFloat(midPercentageInput.value) / 100;
+            const finalPercentage = parseFloat(finalPercentageInput.value) / 100;
 
-      const midWrapper = document.createElement('div');
-      midWrapper.classList.add('select-wrapper');
-      const midSelect = document.createElement('select');
-      midSelect.id = `course${courseCount}Mid`;
-      midSelect.innerHTML = `
-        <option value="">Select Mid Grade</option>
-        <option value="4.00">A+ (90-100)</option>
-        <option value="3.75">A (85-&lt;90)</option>
-        <option value="3.50">B+ (80-&lt;85)</option>
-        <option value="3.25">B (75-&lt;80)</option>
-        <option value="3.00">C+ (70-&lt;75)</option>
-        <option value="2.75">C (65-&lt;70)</option>
-        <option value="2.50">D+ (60-&lt;65)</option>
-        <option value="2.25">D (50-&lt;60)</option>
-        <option value="0.00">F (&lt;50)</option>
-      `;
-      midWrapper.appendChild(midSelect);
+            if (midPercentage + finalPercentage !== 1) {
+                alert('Mid and Final percentages must add up to 100%');
+                return;
+            }
 
-      const finalWrapper = document.createElement('div');
-      finalWrapper.classList.add('select-wrapper');
-      const finalSelect = document.createElement('select');
-      finalSelect.id = `course${courseCount}Final`;
-      finalSelect.innerHTML = midSelect.innerHTML.replace('Mid Grade', 'Final Grade');
-      finalWrapper.appendChild(finalSelect);
+            let totalGradePoints = 0;
+            let totalCredits = 0;
 
-      const creditsInput = document.createElement('input');
-      creditsInput.type = 'number';
-      creditsInput.id = `course${courseCount}Credits`;
-      creditsInput.placeholder = 'Credits';
-      creditsInput.min = '0';
-      creditsInput.value = '3';
-      creditsInput.required = true;
+            for (let i = 0; i < courseCount; i++) {
+                const midSelect = document.querySelector(`#currentSemesterCourses .course-container:nth-child(${i + 1}) .mid-grade`);
+                const finalSelect = document.querySelector(`#currentSemesterCourses .course-container:nth-child(${i + 1}) .final-grade`);
+                const creditsInput = document.querySelector(`#currentSemesterCourses .course-container:nth-child(${i + 1}) .course-credits`);
 
-      courseInput.appendChild(midWrapper);
-      courseInput.appendChild(finalWrapper);
-      courseInput.appendChild(creditsInput);
-      currentSemesterCoursesContainer.appendChild(courseInput);
+                const midGradePoint = getGradePoint(midSelect.value);
+                const finalGradePoint = getGradePoint(finalSelect.value);
+                const credits = parseFloat(creditsInput.value);
 
-      courseCount++;
-      animateElement(courseInput);
-    });
+                if (!isNaN(midGradePoint) && !isNaN(finalGradePoint) && credits > 0) {
+                    const weightedGradePoint = midGradePoint * midPercentage + finalGradePoint * finalPercentage;
+                    totalGradePoints += weightedGradePoint * credits;
+                    totalCredits += credits;
+                }
+            }
 
-    calculateCGPAButton.addEventListener('click', () => {
-      const midPercentage = parseFloat(midPercentageInput.value) / 100;
-      const finalPercentage = parseFloat(finalPercentageInput.value) / 100;
+            const previousCGPA = parseFloat(document.getElementById('previousCGPA').value);
+            const previousCredits = parseFloat(document.getElementById('previousCredits').value);
 
-      if (midPercentage + finalPercentage !== 1) {
-        alert('Mid and Final percentages must add up to 100%');
-        return;
-      }
+            const currentSemesterGPA = totalCredits > 0 ? totalGradePoints / totalCredits : 0;
+            const totalCompletedCredits = previousCredits + totalCredits;
+            const newCGPA = (previousCGPA * previousCredits + currentSemesterGPA * totalCredits) / totalCompletedCredits;
 
-      let totalGradePoints = 0;
-      let totalCredits = 0;
+            resultDiv.innerHTML = `
+                <p>Current Semester GPA: <strong>${currentSemesterGPA.toFixed(2)}</strong></p>
+                <p>Cumulative GPA (CGPA): <strong>${newCGPA.toFixed(2)}</strong></p>
+            `;
+        });
 
-      for (let i = 0; i < courseCount; i++) {
-        const midSelect = document.getElementById(`course${i}Mid`);
-        const finalSelect = document.getElementById(`course${i}Final`);
-        const creditsInput = document.getElementById(`course${i}Credits`);
-
-        const midGradePoint = parseFloat(midSelect.value);
-        const finalGradePoint = parseFloat(finalSelect.value);
-        const credits = parseFloat(creditsInput.value);
-
-        if (!isNaN(midGradePoint) && !isNaN(finalGradePoint) && credits > 0) {
-          const weightedGradePoint = midGradePoint * midPercentage + finalGradePoint * finalPercentage;
-          totalGradePoints += weightedGradePoint * credits;
-          totalCredits += credits;
+        function getGradePoint(score) {
+            switch (score) {
+                case 'A+': return 4.00;
+                case 'A': return 3.75;
+                case 'B+': return 3.50;
+                case 'B': return 3.25;
+                case 'C+': return 3.00;
+                case 'C': return 2.75;
+                case 'D+': return 2.50;
+                case 'D': return 2.25;
+                case 'F': return 0.00;
+                default: return NaN;
+            }
         }
-      }
 
-      const previousCGPA = parseFloat(document.getElementById('previousCGPA').value);
-      const previousCredits = parseFloat(document.getElementById('previousCredits').value);
+        midPercentageInput.addEventListener('input', () => {
+            finalPercentageInput.value = 100 - midPercentageInput.value;
+        });
 
-      const currentSemesterGPA = totalCredits > 0 ? totalGradePoints / totalCredits : 0;
-      const totalCompletedCredits = previousCredits + totalCredits;
-      const newCGPA = (previousCGPA * previousCredits + currentSemesterGPA * totalCredits) / totalCompletedCredits;
+        finalPercentageInput.addEventListener('input', () => {
+            midPercentageInput.value = 100 - finalPercentageInput.value;
+        });
 
-      resultDiv.innerHTML = `
-        <p>Current Semester GPA: <strong>${currentSemesterGPA.toFixed(2)}</strong></p>
-        <p>Cumulative GPA (CGPA): <strong>${newCGPA.toFixed(2)}</strong></p>
-      `;
-      animateElement(resultDiv);
-    });
+        function getRandomFloat(min, max) {
+            return (Math.random() * (max - min) + min).toFixed(2);
+        }
 
-    function getGradePoint(score) {
-      if (score >= 90) return 4.00;
-      if (score >= 85) return 3.75;
-      if (score >= 80) return 3.50;
-      if (score >= 75) return 3.25;
-      if (score >= 70) return 3.00;
-      if (score >= 65) return 2.75;
-      if (score >= 60) return 2.50;
-      if (score >= 50) return 2.25;
-      return 0.00;
-    }
+        function getRandomInt(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
 
-    const buttons = document.querySelectorAll('button');
-    buttons.forEach(button => {
-      button.addEventListener('mousemove', (e) => {
-        const x = e.pageX - button.offsetLeft;
-        const y = e.pageY - button.offsetTop;
-        
-        button.style.setProperty('--x', `${x}px`);
-        button.style.setProperty('--y', `${y}px`);
-      });
+        function setRandomPlaceholders() {
+            const previousCGPAInput = document.getElementById('previousCGPA');
+            const previousCreditsInput = document.getElementById('previousCredits');
 
-      button.addEventListener('mouseenter', () => {
-        button.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
-        button.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.3)';
-      });
+            previousCGPAInput.placeholder = getRandomFloat(3.00, 4.00);
+            previousCreditsInput.placeholder = getRandomInt(15, 148);
+        }
 
-      button.addEventListener('mouseleave', () => {
-        button.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
-        button.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.2)';
-      });
-    });
+        setRandomPlaceholders();
 
-    midPercentageInput.addEventListener('input', () => {
-      finalPercentageInput.value = 100 - midPercentageInput.value;
-    });
-
-    finalPercentageInput.addEventListener('input', () => {
-      midPercentageInput.value = 100 - finalPercentageInput.value;
-    });
-  </script>
+        document.getElementById('previousCGPA').addEventListener('focus', setRandomPlaceholders);
+        document.getElementById('previousCredits').addEventListener('focus', setRandomPlaceholders);
+    </script>
 </body>
 </html>
